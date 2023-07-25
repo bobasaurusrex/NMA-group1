@@ -17,7 +17,7 @@ class NBack(Env):
     # Rewards input is structured as (TP, TN, FP, FN) (positive being matches)
     
     def __init__(self, N=2, num_trials=25, num_targets=None, rewards=(1, 1, -1, -1), num_obs=5, seed=2023):
-
+        
         self.N = N
         self.num_trials = num_trials
         self.episode_length = num_trials + self.N
@@ -25,7 +25,7 @@ class NBack(Env):
         self.rewards = rewards
         self.num_obs = num_obs
         self.num_actions = 2
-        # super().reset(seed=seed)
+        np.random.seed(seed)
 
         # Check that parameters are legal
         assert(len(rewards) == 4)
@@ -40,7 +40,8 @@ class NBack(Env):
     def reset(self, seed=None):
 
         # Seed RNG
-        super().reset(seed=seed)
+        if seed is not None:
+            np.random.seed(seed)
 
         # Generate sequence and correct actions
         self._generate_sequence()
