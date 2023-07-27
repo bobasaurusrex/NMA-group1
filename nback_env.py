@@ -106,9 +106,18 @@ class NBack(Env):
         return self.correct_actions
     
     def _get_info(self):
+        if self.step_count <= self.N:
+            label = None
+        else:
+            if self.correct_actions[self.step_count - self.N - 1]:
+                label = [0, 1]
+            else:
+                label = [1, 0]
         info = {
             'step_count': self.step_count,
+            'label': label
             }
         return info
 
     
+
